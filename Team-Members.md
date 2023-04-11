@@ -2,5 +2,5 @@
 
 Put your names and UCIDs here:
 
-- Member #1: Name -- UCID
-- Member #2: Name -- UCID
+- Member #1: ZhengXuan(Jason) Guan -- 30141226
+- Member #2: Yousif Alomar -- 30156903
