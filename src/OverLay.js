@@ -5,14 +5,20 @@ function OverLay() {
   var time = new Date().toISOString()
   const[birth,setBirth] = useState("")
   const[death,setDeath] = useState(time.slice(0,16));
+  const[name,setName] = useState("");
   console.log(time.slice(0,16));
   const[fileName,setFileName]= useState(null);
-  
+  const[Obituaries,setObituary] = useState([]);
+
   
   const closeOver=()=>
   {
     document.getElementById("over").style.display="none";
     console.log("Close");
+    setBirth("");
+    setDeath(time.slice(0,16));
+    setName("");
+    setFileName(null);
 
   }
   
@@ -20,9 +26,8 @@ function OverLay() {
   const onFileChange=(e)=>
   {
     setFileName("("+e.target.files[0]['name']+")");
-    
   }
-  console.log(fileName);
+  console.log(name);
   
   
   
@@ -40,13 +45,13 @@ function OverLay() {
           
           <div id="OverLayPic">
             <img src={logo} width="200px" height="200px"></img>
-            <label id = "imgName"for="imgSelect">Select an image for the deceased {1&&(fileName)}</label>
+            <label id = "imgName"htmlFor="imgSelect">Select an image for the deceased {1&&(fileName)}</label>
             <input type="file" id="imgSelect" accept="image/*" onChange={(e)=>onFileChange(e)}/>
           </div> 
 
           <div id="NameDied">
 
-            <input type="text" placeholder="Name of the deceased"/>
+            <input type="text" placeholder="Name of the deceased" value={name} onChange={(e)=>setName(e.target.value)}/>
 
           </div>
           <div id="OverLayDates">
@@ -58,7 +63,7 @@ function OverLay() {
           </div>
 
           <div id="WriteObituary">
-            <button>Write Obituary</button>
+            <button onClick={writeOb}>Write Obituary</button>
           </div>
 
         </div>
