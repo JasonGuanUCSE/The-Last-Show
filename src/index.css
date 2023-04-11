@@ -102,16 +102,25 @@ html,body
 }
 
 
-#OverLayPic
-{
-  font-family: "Arial", sans-serif;
-}
+
+
+
+
+
+
 
 #CloseOver
 {
-  display: flex;
-  justify-content: end;
+  position:absolute;
+  right: -96%;
+  bottom: 86%;
+  z-index: 9999;
+  width: xyz;
+  height: xyz;
+  font-size: 60px;
   width: 100%;
+  cursor: pointer;
+
 }
 
 
@@ -177,4 +186,49 @@ html,body
   border-radius: 5%;
 
 
+}
+
+#OverLayPic
+{
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+#imgSelect 
+{
+  visibility: hidden;
+}
+
+#imgName:hover
+{
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
+
+
+
+#WriteObituary button:hover
+{
+  background-color: #403c3c;
+}
+
+
+
+#noItems
+{
+  font-family: "Arial", sans-serif;
+  position:absolute;
+  left: 41%;
+  color:gray;
+  top:10%;
+  width: xyz;
+  height: xyz;
+  font-size: 35px;
 }

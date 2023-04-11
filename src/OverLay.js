@@ -1,14 +1,38 @@
 import logo from "./img.png";
-
+import { useState } from "react";
 
 function OverLay() {
-    return (
+  var time = new Date().toISOString()
+  const[birth,setBirth] = useState("")
+  const[death,setDeath] = useState(time.slice(0,16));
+  console.log(time.slice(0,16));
+  const[fileName,setFileName]= useState(null);
+  
+  
+  const closeOver=()=>
+  {
+    document.getElementById("over").style.display="none";
+    console.log("Close");
+
+  }
+  
+
+  const onFileChange=(e)=>
+  {
+    setFileName("("+e.target.files[0]['name']+")");
+    
+  }
+  console.log(fileName);
+  
+  
+  
+  return (
       
-        <div id="over">
-          <div id="CloseOver">
-            X
+        <div id="over" >
+          <div id="CloseOver"onClick={closeOver}>
+            &times;
         </div>
-          <div id="TitleOverLay">
+          <div id="TitleOverLay" >
             Create a New Obituary
           </div>
           
@@ -16,7 +40,8 @@ function OverLay() {
           
           <div id="OverLayPic">
             <img src={logo} width="200px" height="200px"></img>
-            <div>Select an image for the deceased</div>
+            <label id = "imgName"for="imgSelect">Select an image for the deceased {1&&(fileName)}</label>
+            <input type="file" id="imgSelect" accept="image/*" onChange={(e)=>onFileChange(e)}/>
           </div> 
 
           <div id="NameDied">
@@ -26,9 +51,9 @@ function OverLay() {
           </div>
           <div id="OverLayDates">
             <p><i>Born: </i></p>
-            <input type="datetime-local"/>
+            <input type="datetime-local" value={birth} onChange = {(e)=>setBirth(e.target.value)}/>
             <p><i>Died: </i></p>
-            <input type="datetime-local"/>
+            <input type="datetime-local" value={death} onChange={(e)=>setDeath(e.target.value)} />
 
           </div>
 

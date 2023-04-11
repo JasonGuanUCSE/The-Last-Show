@@ -8,6 +8,7 @@ function App() {
   const enableOverLay=()=>
   {
     document.getElementById("over").style.display="flex";
+    console.log("Open");
 
   }
 

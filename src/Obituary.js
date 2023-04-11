@@ -1,7 +1,21 @@
 function Obituary()
 {
     return(
-        <h1>Here</h1>
+        <div>
+            <div id="noItems">
+                No Obituary Yet
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
 
     );
 }
