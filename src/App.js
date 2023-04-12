@@ -1,9 +1,12 @@
 import OverLay from "./OverLay";
-
+import Obituary from './Obituary';
+import { useState } from "react";
 
 
 function App() {
   
+  const[name,setName] = useState("");
+  const[btn,setBtn]=useState(null);
 
   const enableOverLay=()=>
   {
@@ -21,6 +24,8 @@ function App() {
       <div id="ObituaryBtn" onClick={enableOverLay}>+ New Obituary</div>
 
     </div>
+    <OverLay name={name} setName={setName} btn={btn} setBtn={setBtn}/>
+    <Obituary name={name} btn={btn} setBtn={setBtn}/>
   </div>);
 }
 

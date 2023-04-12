@@ -13,8 +13,8 @@ root.render(
   
   <React.StrictMode >
     <App/>
-    <Obituary />
-    <OverLay/>
+    {/* <Obituary /> */}
+    {/* <OverLay/> */}
   </React.StrictMode>
 );
 
