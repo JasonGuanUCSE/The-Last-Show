@@ -8,6 +8,7 @@ function OverLay() {
   const[name,setName] = useState("");
   console.log(time.slice(0,16));
   const[fileName,setFileName]= useState(null);
+  const[file ,setFile]=useState(null);
   const[Obituaries,setObituary] = useState([]);
 
   
@@ -23,11 +24,66 @@ function OverLay() {
   }
   
 
+
+
+
+
   const onFileChange=(e)=>
   {
     setFileName("("+e.target.files[0]['name']+")");
+    setFile(e.target.files[0]);
   }
   console.log(name);
+
+
+  const writeOb= async()=>
+  {
+    console.log(name,birth,death,file);
+    const Data = new FormData();
+    Data.append("name",name);
+    Data.append("birth",birth);
+    Data.append("death",death);
+    Data.append("file",file);
+
+
+    const promise = await fetch("https://sstjz4m6agqlfqewwqhdyvhw6q0fsyux.lambda-url.ca-central-1.on.aws/",
+
+      {
+        method:"POST",
+        body:Data,
+      }
+    )
+    
+    console.log("Response from create: ",promise);
+
+
+    const promise2 = await fetch(`https://ri3guhrb6p5p5vapeht2wetx5u0uluiu.lambda-url.ca-central-1.on.aws/?name=${name}`,
+    
+      {
+        method:"GET"
+      }
+    
+    );
+
+      const obituary = await promise2.json();
+      console.log('Name: ', obituary[0]["Name"]);
+      console.log('BornDay: ', obituary[0]["BornDay"]);
+      console.log('DeathDay: ',obituary[0]["DeathDay"]);
+      console.log('Image: ', obituary[0]["Image"]);
+      console.log('Audio: ', obituary[0]["Audio"]);
+      console.log('Obituary: ', obituary[0]["Obituary"]);
+      //print out the result of the lambda function
+      console.log('Response from Get: ', promise2);
+
+
+
+
+
+
+  }
+
+
+
   
   
   
