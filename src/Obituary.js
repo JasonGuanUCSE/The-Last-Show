@@ -1,5 +1,16 @@
-function Obituary({name,btn,setBtn})
+import react,{useState,useEffect} from "react";
+import OverLay from "./OverLay";
+
+
+function Obituary()
 {
+    const[name,setName] = useState("");
+    const[btn,setBtn]=useState(null);
+
+
+
+
+
     const getOb= async()=>{
     const promise2 = await fetch(`https://ri3guhrb6p5p5vapeht2wetx5u0uluiu.lambda-url.ca-central-1.on.aws/?name=${name}`,
     {
@@ -17,7 +28,17 @@ function Obituary({name,btn,setBtn})
           //print out the result of the lambda function
           console.log('Response from Get: ', promise2);
       }
-    getOb();
+    
+    useEffect(()=>{
+        getOb();
+
+    },[btn])
+
+
+
+
+
+
     console.log("Button has been pressed"+btn);
     return(
         <div>
@@ -30,7 +51,7 @@ function Obituary({name,btn,setBtn})
 
 
 
-
+            <OverLay name={name} setName={setName} btn={btn} setBtn={setBtn}/>
 
 
         </div>
