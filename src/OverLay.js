@@ -6,7 +6,7 @@ function OverLay({name,setName,btn,setBtn}) {
   const[birth,setBirth] = useState("")
   const[death,setDeath] = useState(time.slice(0,16));
   // const[name,setName] = useState("");
-  console.log(time.slice(0,16));
+  //console.log(time.slice(0,16));
   const[fileName,setFileName]= useState(null);
   const[file ,setFile]=useState(null);
   // const[btn,setBtn]=useState(null);
@@ -30,7 +30,7 @@ function OverLay({name,setName,btn,setBtn}) {
     setFileName("("+e.target.files[0]['name']+")");
     setFile(e.target.files[0]);
   }
-  console.log(name);
+  //console.log(name);
 
 
   const writeOb= async()=>
@@ -49,8 +49,9 @@ function OverLay({name,setName,btn,setBtn}) {
         body:Data,
       }
     )
-    setBtn(1);
+    //setBtn(1);
     console.log("Response from create: ",promise);
+    closeOver();
 
   }
 
