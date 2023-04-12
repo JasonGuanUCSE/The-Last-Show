@@ -30,7 +30,7 @@ function OverLay({name,setName,btn,setBtn}) {
     setFile(e.target.files[0]);
     
   }
-  console.log("NAME:  ",name);
+  //console.log(name);
 
 
   const writeOb= async()=>
@@ -52,6 +52,7 @@ function OverLay({name,setName,btn,setBtn}) {
     setBtn(1);
     setName(curName);
     console.log("Response from create: ",promise);
+    closeOver();
 
   }
 
