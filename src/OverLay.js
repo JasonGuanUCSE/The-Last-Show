@@ -10,7 +10,6 @@ function OverLay({name,setName,btn,setBtn}) {
   const[file ,setFile]=useState(null);
   // const[btn,setBtn]=useState(null);
   //const[Obituaries,setObituary] = useState([]);
-  const[curName,setcurName]=useState("");
   
   const closeOver=()=>
   {
@@ -50,7 +49,6 @@ function OverLay({name,setName,btn,setBtn}) {
       }
     )
     setBtn(1);
-    setName(curName);
     console.log("Response from create: ",promise);
     closeOver();
 
@@ -99,7 +97,7 @@ function OverLay({name,setName,btn,setBtn}) {
 
           <div id="NameDied">
 
-            <input type="text" placeholder="Name of the deceased" value={curName} onChange={(e)=>setcurName(e.target.value)}/>
+            <input type="text" placeholder="Name of the deceased" value={name} onChange={(e)=>setName(e.target.value)}/>
 
           </div>
           <div id="OverLayDates">
