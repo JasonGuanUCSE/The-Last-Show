@@ -11,13 +11,13 @@ def lambda_handler(event, context):
     if response['Count'] == 0:
         print('No obituaries found')
         return {
-            'statusCode': 404,
+            'statusCode': 200,
             'body': json.dumps('No obituaries found')
         }
     else:
         print(response['Items'])
         return {
-            'statusCode': 200,
+            'statusCode': 201,
             'body': json.dumps(response['Items'])
         }
 
