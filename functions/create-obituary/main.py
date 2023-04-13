@@ -53,12 +53,12 @@ def lambda_handler(event, context):
     signature = hashlib.sha1(to_sign_bytes).hexdigest()
 
     #upload the image to cloudinary with the signature
-    url = 'https://api.cloudinary.com/v1_1/' + cloudinary_cloud_name + '/image/upload'
+    url = 'https://api.cloudinary.com/v1_1/' + cloudinary_cloud_name + '/image/upload/'
     params = {'api_key': cloudinary_api_key, 'public_id': public_id, 'timestamp': timestamp, 'signature': signature}
     files = {'file': file}
 
 
-    # send HTTP POST request
+    # send HTTP POST request to cloudinary
     response = requests.post(url, params=params, files=files, auth=(cloudinary_api_key, cloudinary_api_secret))
     #print the response from cloudinary to see if it worked
     print(response.text)
@@ -85,7 +85,7 @@ def lambda_handler(event, context):
     "temperature": 0.5
     }
 
-    # Send HTTP POST request
+    # Send HTTP POST request to OpenAI API
     response = requests.post(endpoint, headers=headers, data=json.dumps(payload))
 
     # Parse the response
@@ -113,7 +113,7 @@ def lambda_handler(event, context):
     audio_url = 'https://api.cloudinary.com/v1_1/' + cloudinary_cloud_name + '/video/upload'
     audio_files = {'file': audio_stream}
 
-    # send HTTP POST request
+    # send HTTP POST request to cloudinary
     response_polly = requests.post(audio_url, params=params, files=audio_files, auth=(cloudinary_api_key, cloudinary_api_secret))
     #print the response from cloudinary to see if it worked
     print('polly feedback',response_polly.text)

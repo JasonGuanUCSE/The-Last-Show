@@ -13,6 +13,7 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
   
   const closeOver=()=>
   {
+    document.getElementById("popup").style.display = "none";
     document.getElementById("over").style.display="none";
     console.log("Close");
     setBirth("");
@@ -39,33 +40,42 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
 
   const writeOb= async()=>
   {
-    console.log(name,birth,death,file);
-    const Data = new FormData();
-    Data.append("name",name);
-    Data.append("birth",birth);
-    Data.append("death",death);
-    Data.append("file",file);
-    const resetBtn = document.querySelector("#write")
-    resetBtn.disabled=true;
-    document.getElementById("write").style.backgroundColor="#c0bcbc";
-    resetBtn.innerText="Please wait.It's not like they're gonna be late for something ...";
-
-    const promise = await fetch("https://sstjz4m6agqlfqewwqhdyvhw6q0fsyux.lambda-url.ca-central-1.on.aws/",
-      {
-        method:"POST",
-        body:Data,
-      }
-    )
-    setBtn(1);
-    console.log("Response from create: ",promise);
-    closeOver();
-    if(promise.ok)
-    {
-      resetBtn.disabled=false;
-      resetBtn.innerText="Write Obituary";
-      document.getElementById("write").style.backgroundColor="#30cca4";
+    if (!name) {
+      console.log("Name is required");
+      document.getElementById("popup").style.display = "block";
+      return;
     }
-    setDefault(name);
+    else{
+      document.getElementById("popup").style.display = "none";
+      console.log(name,birth,death,file);
+      const Data = new FormData();
+      Data.append("name",name);
+      Data.append("birth",birth);
+      Data.append("death",death);
+      Data.append("file",file);
+      const resetBtn = document.querySelector("#write")
+      resetBtn.disabled=true;
+      document.getElementById("write").style.backgroundColor="#c0bcbc";
+      resetBtn.innerText="Please wait.It's not like they're gonna be late for something ...";
+
+      const promise = await fetch("https://sstjz4m6agqlfqewwqhdyvhw6q0fsyux.lambda-url.ca-central-1.on.aws/",
+        {
+          method:"POST",
+          body:Data,
+        }
+      )
+      setBtn(1);
+      console.log("Response from create: ",promise);
+      closeOver();
+      if(promise.ok)
+      {
+        resetBtn.disabled=false;
+        resetBtn.innerText="Write Obituary";
+        document.getElementById("write").style.backgroundColor="#30cca4";
+      }
+      setDefault(name);
+    }
+    
 
   }
 
@@ -90,7 +100,9 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
               <input type="file" id="imgSelect" accept="image/*" onChange={(e)=>onFileChange(e)}/>
             </div> 
             
-            
+            <div id="popup">
+              <p>Pleaes fill the field</p>
+            </div>
             <div id="NameDied">
               <input type="text" placeholder="Name of the deceased" value={name} onChange={(e)=>setName(e.target.value)}/>
             </div>
@@ -107,7 +119,6 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
 
 
             </div>
-
             <div id="WriteObituary">
               <button id="write" onClick={writeOb}>Write Obituary</button>
             </div>

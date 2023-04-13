@@ -336,4 +336,18 @@ html,body
 }
 
 
+#popup {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #c9cc30;
+  display: none;
+  z-index: 3; 
+}
+
+
+
+
+
 
