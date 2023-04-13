@@ -2,20 +2,25 @@ import react,{useState,useEffect} from "react";
 import OverLay from "./OverLay";
 import ply from './ply.png';
 import stp from './stp.png';
+import { resolveTo } from "@remix-run/router";
 
 function Obituary()
 {
     const[name,setName] = useState("");
     const[btn,setBtn]=useState(null);
     const [obituaries,setObituary]= useState([]);
+    const[defaultOpn,setDefault]=useState("");
     const [a,setA]=useState();
     var num =0;
 
 
-
+    useEffect(()=>{
+        if(document.getElementById(defaultOpn)){document.getElementById(defaultOpn).style.display="block";}
+    },[obituaries])
 
 
     const getOb= async()=>{
+        
     const promise2 = await fetch(`https://ri3guhrb6p5p5vapeht2wetx5u0uluiu.lambda-url.ca-central-1.on.aws/`,
     {
         method:"GET"      
@@ -23,9 +28,13 @@ function Obituary()
         );
     
           const obituary = await promise2.json();
-          //console.log(obituary);
-          setObituary(obituary);
+          if(obituary==="No obituaries found"){setObituary(null);}
+          else{setObituary(obituary);}
+
+
+
       }
+      
     
     useEffect(()=>{
         if(btn==1){getOb();setBtn(null)}
@@ -42,15 +51,6 @@ function Obituary()
 
     },[])
 
-    //console.log(obituaries.map((ob)=>console.log(ob)));
-    // var playing = true;
-
-    // const playSound=(e)=>
-    // {
-    //     var a= new Audio(e)
-    //     if(playing){a.play();}
-    //     else{a.pause();}
-    // }
     const[isPlaying,setIsPlaying] = useState(false);
 
 
@@ -97,38 +97,46 @@ function Obituary()
         const option = {month:'long',day:'numeric',year:'numeric'}
         const formatted = date.toLocaleDateString('en-US',option);
         return formatted;
-
-
-
-
     }
 
+    const closeInfo=(index)=>
+    {
+        if(document.getElementById(`${index}`).style.display=="block")
+        {
+            document.getElementById(`${index}`).style.display="none";
+        }
+        else
+        {
+            document.getElementById(`${index}`).style.display="block";
+        }
+    }
+    const defaultStyle={
+        display:'none',
+    };
 
     return(
         <div>
-            <div id="noItems">
-                {!obituaries&&"No Obituary Yet"}
-            </div>
+            
             
             <div id="showCase">
 
-                {obituaries.map((ob,index)=>
+                {obituaries ?  obituaries.map((ob,index)=>
                 <div id="Case">
                     
-                    <img id="Image" src={ob["Image"]} />
+                    <img id="Image" src={ob["Image"]} onClick={()=>closeInfo(ob["Name"])}/>
                     <div id="NameDeath">{ob["Name"]}</div>
-                    {/* <div id="BornDate">{ob["BornDay"]}</div>
-                    <div id="DeathDate">{ob["DeathDay"]}</div> */}
                     <div id="Date">{formatDate(ob["BornDay"])} - {formatDate(ob["DeathDay"])}</div>
-
-
-
-                    <p id="Description">{ob["Obituary"]}</p>
-                    <audio id={`sound-${index}`} src={ob["Audio"]} type={ob["Audio"]}></audio>
-                    <div id="play"><img src={index===a ? stp : ply} onClick={() => playAudio(index)} /></div>
                     
+
+                    <div id={`${ob["Name"]}`} style={defaultStyle}>
+                        <p id="Description">{ob["Obituary"]}</p>
+                        <audio id={`sound-${index}`} src={ob["Audio"]} type={ob["Audio"]}></audio>
+                        <div id="play"><img src={index===a ? stp : ply} onClick={() => playAudio(index)} /></div>
+                    </div>
                     
-                </div>)}
+                </div>):<div id="noItems">
+                {"No Obituary Yet"}
+            </div>}
             
             
             </div>
@@ -138,7 +146,7 @@ function Obituary()
 
 
 
-            <OverLay name={name} setName={setName} btn={btn} setBtn={setBtn}/>
+            <OverLay name={name} setName={setName} btn={btn} setBtn={setBtn} defaultOpn={defaultOpn} setDefault={setDefault} />
 
 
         </div>
