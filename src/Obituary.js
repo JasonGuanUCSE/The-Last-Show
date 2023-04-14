@@ -121,7 +121,7 @@ function Obituary()
             <div id="showCase">
 
                 {obituaries ?  obituaries.map((ob,index)=>
-                <div id="Case">
+                <div id="Case" key={index}>
                     
                     <img id="Image" src={ob["Image"]} onClick={()=>closeInfo(ob["Name"])}/>
                     <div id="NameDeath">{ob["Name"]}</div>
