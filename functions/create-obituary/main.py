@@ -64,6 +64,7 @@ def lambda_handler(event, context):
     print(response.text)
     #print the url of the image
     image_url = response.json()['url']
+    image_url = image_url.replace("image/upload", "image/upload/e_art:zorrro,e_grayscale")
     print(image_url)
 
     #get openai credentials from parameter store
@@ -112,7 +113,7 @@ def lambda_handler(event, context):
     #upload the audio to cloudinary
     audio_url = 'https://api.cloudinary.com/v1_1/' + cloudinary_cloud_name + '/video/upload'
     audio_files = {'file': audio_stream}
-
+    #'eager': 'e_art:zorrro,e_grayscale'
     # send HTTP POST request to cloudinary
     response_polly = requests.post(audio_url, params=params, files=audio_files, auth=(cloudinary_api_key, cloudinary_api_secret))
     #print the response from cloudinary to see if it worked

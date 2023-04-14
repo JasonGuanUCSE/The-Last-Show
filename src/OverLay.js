@@ -40,7 +40,7 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
 
   const writeOb= async()=>
   {
-    if (!name) {
+    if (!name || !birth || !death || !file) {
       console.log("Name is required");
       document.getElementById("popup").style.display = "block";
       return;
@@ -101,7 +101,7 @@ function OverLay({name,setName,btn,setBtn,defaultOpn,setDefault}) {
             </div> 
             
             <div id="popup">
-              <p>Pleaes fill the field</p>
+              <p>Pleaes fill All the field</p>
             </div>
             <div id="NameDied">
               <input type="text" placeholder="Name of the deceased" value={name} onChange={(e)=>setName(e.target.value)}/>
